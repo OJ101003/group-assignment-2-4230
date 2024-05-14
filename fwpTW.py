@@ -9,7 +9,10 @@ def read_edges_and_map_ids(filename):
     
 
     with open(filename, 'r') as f:
+        counter = 0
         for line in f:
+            if counter >= 1000:
+                break
             node1, node2 = map(int, line.split())
             if node1 not in id_map:
                 id_map[node1] = current_id
