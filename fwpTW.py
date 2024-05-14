@@ -11,9 +11,11 @@ def read_edges_and_map_ids(filename):
     with open(filename, 'r') as f:
         counter = 0
         for line in f:
-            if counter >= 1000:
+            if counter >= 2000:
                 break
+            counter += 1
             node1, node2 = map(int, line.split())
+            # print(node1, node2, current_id)
             if node1 not in id_map:
                 id_map[node1] = current_id
                 reverse_id_map[current_id] = node1
@@ -49,8 +51,9 @@ comm = MPI.COMM_WORLD
 size = comm.Get_size()
 rank = comm.Get_rank()
 
+
 # Read edges and map node IDs
-edges, id_map, reverse_id_map = read_edges_and_map_ids('twitter_combined.txt')
+edges, id_map, reverse_id_map = read_edges_and_map_ids('facebook_combined.txt')
 n = len(id_map)  # Number of unique nodes
 
 if size > n:
